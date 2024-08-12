@@ -34,7 +34,8 @@ resource "aws_eip" "nat_gw_elastic_ip" {
 }
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 5.12"
 
   name = local.vpc_name
   cidr = "10.0.0.0/16"
@@ -80,9 +81,6 @@ module "vpc" {
     tomap({"Name" = "${local.vpc_name}-default-nacl"}),
     local.vpc_tags
   )
-
-  # elasticache nacl
-  elasticache_dedicated_network_acl = true
 
   # public-app-tier nacl
   public_dedicated_network_acl   = true
